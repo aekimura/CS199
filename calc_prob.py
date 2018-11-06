@@ -3,8 +3,6 @@
 import sys
 import statistics
 import pandas
-import seaborn
-import matplotlib.pyplot as plt
 
 def calc_prob (file_path: str) -> int:
         my_file = None

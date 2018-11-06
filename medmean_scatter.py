@@ -31,8 +31,6 @@ def mean_median_scatter (file_path: str) -> int:
         values_table = pandas.DataFrame(allquallist)
         values_table.columns = ['Mean', 'Median', 'Min', 'Max']
         pandas.options.display.precision = 16
-        #sns.set_context("notebook", font_scale=1.1)
-        #sns.set_style("ticks")
         sns.lmplot('Mean', 'Median', values_table, fit_reg = False,  scatter_kws={"s": 25})
         plt.title('Median vs Mean Probability Correct for mytestfile.fastq')
         plt.xlabel('Mean')
