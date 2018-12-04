@@ -6,6 +6,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
+#import seaborn as sns
 
 def make_dataframe() -> 'dataframe':
 	'''Creates and returns a  pandas dataframe with the data given'''
@@ -52,14 +53,23 @@ def plot_pca(sdf: 'dataframe') -> None:
 	finalDf = pd.concat([principalDf, sdf[['Haplogroup']]], axis = 1)
 
 	#Shows how much varience can be attributed to each of the principal components
-	#variance = pca.explained_variance_ratio_
-	#print(finalDf)
+	variance = pca.explained_variance_ratio_
 	#print(variance)
+	#print(finalDf)
+
+	#Attemt to flip graph
+	#sns.scatterplot(x='PC1',y='PC2',hue='Haplogroup',data=finalDf)
+
+	#Put variance in Axis labels
+	x_variance = variance[0] * 100
+	x_label = 'PC1 (' + str(x_variance)[:2] + '%)'
+	y_variance = variance[1] * 100
+	y_label = 'PC2 (' + str(y_variance)[:2] + '%)'
 
 	fig = plt.figure(figsize = (8, 8))
 	ax = fig.add_subplot(1, 1, 1)
-	ax.set_xlabel('PC1', fontsize = 15)
-	ax.set_ylabel('PC2', fontsize = 15)
+	ax.set_xlabel(x_label, fontsize = 15)
+	ax.set_ylabel(y_label, fontsize = 15)
 	ax.set_title('Principal Component Analysis', fontsize = 20)
 
 	targets = ['Northern Chinese Han', 'African American', 'U.S. Caucasian', 'Filipino', 'Armenian', 'Azeri', 'Georgian', 'Iranian', 'Turk', 'Zambian']
