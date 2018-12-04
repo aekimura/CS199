@@ -6,7 +6,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
-#import seaborn as sns
+import seaborn as sns
 
 def make_dataframe() -> 'dataframe':
 	'''Creates and returns a  pandas dataframe with the data given'''
@@ -66,23 +66,30 @@ def plot_pca(sdf: 'dataframe') -> None:
 	y_variance = variance[1] * 100
 	y_label = 'PC2 (' + str(y_variance)[:2] + '%)'
 
-	fig = plt.figure(figsize = (8, 8))
-	ax = fig.add_subplot(1, 1, 1)
-	ax.set_xlabel(x_label, fontsize = 15)
-	ax.set_ylabel(y_label, fontsize = 15)
-	ax.set_title('Principal Component Analysis', fontsize = 20)
+	#Plot using matplotlib
+	#fig = plt.figure(figsize = (8, 8))
+	#ax = fig.add_subplot(1, 1, 1)
+	#ax.set_xlabel(x_label, fontsize = 15)
+	#ax.set_ylabel(y_label, fontsize = 15)
+	#ax.set_title('Principal Component Analysis', fontsize = 20)
+	#targets = ['Northern Chinese Han', 'African American', 'U.S. Caucasian', 'Filipino', 'Armenian', 'Azeri', 'Georgian', 'Iranian', 'Turk', 'Zambian']
+	#colors = ['red', 'gray', 'green', 'orange', 'pink', 'purple', 'blue', 'cyan', 'olive', 'brown']
+	#for target, color in zip(targets, colors):
+	#	indicesToKeep = finalDf['Haplogroup'] == target
+	#	ax.scatter(finalDf.loc[indicesToKeep, 'PC1'],
+	#			finalDf.loc[indicesToKeep, 'PC2'],
+	#			c = color,
+	#			s = 50)
 
-	targets = ['Northern Chinese Han', 'African American', 'U.S. Caucasian', 'Filipino', 'Armenian', 'Azeri', 'Georgian', 'Iranian', 'Turk', 'Zambian']
-	colors = ['red', 'gray', 'green', 'orange', 'pink', 'purple', 'blue', 'cyan', 'olive', 'brown']
-	for target, color in zip(targets, colors):
-		indicesToKeep = finalDf['Haplogroup'] == target
-		ax.scatter(finalDf.loc[indicesToKeep, 'PC1'],
-				finalDf.loc[indicesToKeep, 'PC2'],
-				c = color,
-				s = 50)
+	#Plot using seaborn
+	sns.lmplot("PC1", "PC2", data = finalDf, fit_reg = False, hue = 'Haplogroup', 
+			scatter_kws={"marker": "D", "s": 50})
+	plt.title("Principal Component Analysis")
+	plt.xlabel(x_label)
+	plt.ylabel(y_label)
 
-	ax.legend(targets)
-	ax.grid()
+	#ax.legend(targets)
+	#ax.grid()
 	plt.show()
 
 if __name__ == '__main__':
